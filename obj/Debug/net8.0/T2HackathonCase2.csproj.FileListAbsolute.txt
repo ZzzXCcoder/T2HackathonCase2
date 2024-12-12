@@ -1,0 +1,7 @@
+C:\Users\makak\source\repos\T2HackathonCase2\T2HackathonCase2\obj\Debug\net8.0\T2HackathonCase2.csproj.AssemblyReference.cache
+C:\Users\makak\source\repos\T2HackathonCase2\T2HackathonCase2\obj\Debug\net8.0\T2HackathonCase2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\makak\source\repos\T2HackathonCase2\T2HackathonCase2\obj\Debug\net8.0\T2HackathonCase2.AssemblyInfoInputs.cache
+C:\Users\makak\source\repos\T2HackathonCase2\T2HackathonCase2\obj\Debug\net8.0\T2HackathonCase2.AssemblyInfo.cs
+C:\Users\makak\source\repos\T2HackathonCase2\T2HackathonCase2\obj\Debug\net8.0\T2HackathonCase2.csproj.CoreCompileInputs.cache
+C:\Users\makak\source\repos\T2HackathonCase2\T2HackathonCase2\obj\Debug\net8.0\T2HackathonCase2.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\makak\source\repos\T2HackathonCase2\T2HackathonCase2\obj\Debug\net8.0\T2HackathonCase2.MvcApplicationPartsAssemblyInfo.cache
