@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("T2HackathonCase2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01eef71671dc2f192b0c82f8982a0ec0230613d0")]
 [assembly: System.Reflection.AssemblyProductAttribute("T2HackathonCase2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("T2HackathonCase2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

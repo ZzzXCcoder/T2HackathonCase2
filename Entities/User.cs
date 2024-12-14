@@ -6,15 +6,23 @@ namespace T2HackathonCase2.Entities
     {
         [Required]
         [Key]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
-        public long TelegramId { get; set; }
+        public long ChatId { get; set; }
 
-        string? UserName { get; set; }
+        public string UserName { get; set; }
 
-        public DateTime? CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public string? Description {  get; set; }
+        public string? Company {get; set; }
+        public double? Latitude { get; set; }
+
+        public int? Duration { get; set; }
+
+        public double? Longtute { get; set; }
+        public long? LocationId { get; set; } 
+        public ICollection<Location> Locations { get; set; } = new List<Location>();
+
     }
 }
