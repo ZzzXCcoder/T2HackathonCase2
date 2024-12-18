@@ -8,6 +8,7 @@ namespace T2HackathonCase2.Service.MessageService
 
         public InlineKeyboardMarkup GetKeyboard(string key);
 
+        public InlineKeyboardMarkup GetKeyboard(long key);
         public ReplyKeyboardMarkup GetReplyKeyboard(string key);
     }
 }

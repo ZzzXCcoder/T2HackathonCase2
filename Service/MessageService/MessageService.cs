@@ -1,4 +1,5 @@
 ﻿using T2HackathonCase2.Service.MessageService;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
 public class MessageService : IMessageService
@@ -28,7 +29,14 @@ public class MessageService : IMessageService
             { "send_location_promt",
                  "Чтобы я мог подобрать для вас лучшие маршруты и интересные локации рядом с вами, пожалуйста, отправьте вашу текущую геопозицию. " +
                  "Просто нажмите на кнопку ниже! 📍\r\n\r\n" +
-                 "Не переживайте, ваша локация используется только для построения маршрутов и никак не сохраняется. 🌟" }
+                 "Не переживайте, ваша локация используется только для построения маршрутов и никак не сохраняется. 🌟" },
+             { "open_web_app_promt",
+                 "Нажмите на кнопку чтоб открыть веб приложение" },
+            { "get_location_foruser",
+                "Надо нажать ещё раз"
+            }
+
+
         };
 
         // Инициализация коллекции клавиатур
@@ -47,7 +55,7 @@ public class MessageService : IMessageService
                     new[] // Первая строка с кнопками
                     {
                         InlineKeyboardButton.WithCallbackData("Для семьи", "for_family"),
-                        InlineKeyboardButton.WithCallbackData("Для включённой пары", "for_loving_couple")
+                        InlineKeyboardButton.WithCallbackData("Для влюбенной пары", "for_loving_couple")
                     },
                     new[] // Вторая строка с кнопками
                     {
@@ -55,7 +63,33 @@ public class MessageService : IMessageService
                         InlineKeyboardButton.WithCallbackData("В гордом одиночестве", "for_solo")
                     }
                 })
+            },
+            { "get_location_foruser", new InlineKeyboardMarkup(new[]
+                {
+                    new[] // Первая строка с кнопками
+                    {
+                        InlineKeyboardButton.WithCallbackData("Получить локации для меня", "received_location_foruser"),
+                    }
+
+                })
+            },
+            { "received_location_foruser", new InlineKeyboardMarkup(new[]
+                {
+                    new[] // Первая строка с кнопками
+                    {
+                        InlineKeyboardButton.WithCallbackData("Назад", "back_location"),
+                        InlineKeyboardButton.WithCallbackData("Вперед", "next_location")
+                    },
+                    new[] // Первая строка с кнопками
+                    {
+                        InlineKeyboardButton.WithCallbackData("Получить место на карте", "get_place"),
+                    }
+
+
+                })
             }
+
+
         };
         _replyKeyboards = new Dictionary<string, ReplyKeyboardMarkup>
         {
@@ -111,5 +145,17 @@ public class MessageService : IMessageService
         {
             throw new KeyNotFoundException($"Клавиатура с ключом {key} не найдена.");
         }
+    }
+
+    public InlineKeyboardMarkup GetKeyboard(long id)
+    {
+       var GetInlineKeyboardMarkup = new InlineKeyboardMarkup(new[]
+        {
+            new[] // Первая строка с кнопками
+            {
+                        InlineKeyboardButton.WithWebApp("Получить список мест", new WebAppInfo($"https://9bf5-185-177-229-201.ngrok-free.app?id={id}"))
+            }
+        });
+        return GetInlineKeyboardMarkup;
     }
 }

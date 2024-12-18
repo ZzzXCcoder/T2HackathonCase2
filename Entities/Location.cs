@@ -1,21 +1,41 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using T2HackathonCase2.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Location
+namespace T2HackathonCase2.Entities
 {
-    [Required]
-    [Key]
-    public Guid Id { get; set; }
+    // Класс для хранения информации о часах работы
+    public class OpeningHours
+    {
+        [Key]
+        public Guid Id { get; set; }  // Основной ключ для записи часов работы
 
-    [Required]
-    public string Name { get; set; } = string.Empty;
+        public string Start { get; set; } // День недели
+        public string Duration { get; set; } // Время открытия
+        public string Recurence { get; set; } // Время закрытия
 
-    public string? Description { get; set; }
+    }
 
-    [Required]
-    public double Latitude { get; set; }
+    // Основной класс для локации
+    public class Location
+    {
+        [Required]
+        [Key]
+        public string Id { get; set; }
 
-    [Required]
-    public double Longitude { get; set; }
+        [Required]
+        public string? Name { get; set; }
 
+        public string? Description { get; set; }
+
+        [Required]
+        public double Latitude { get; set; }
+
+        [Required]
+        public double Longitude { get; set; }
+
+        public string? Category { get; set; }
+
+        public string? ImageURL { get;set ; }
+
+    }
 }

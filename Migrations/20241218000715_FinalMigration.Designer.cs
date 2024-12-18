@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using T2HackathonCase2.Data;
 
@@ -10,9 +11,11 @@ using T2HackathonCase2.Data;
 namespace T2HackathonCase2.Migrations
 {
     [DbContext(typeof(WeekendWayDbContext))]
-    partial class WeekendWayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241218000715_FinalMigration")]
+    partial class FinalMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");

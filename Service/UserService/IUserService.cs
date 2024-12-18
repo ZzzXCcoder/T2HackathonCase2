@@ -12,7 +12,8 @@ namespace T2HackathonCase2.Service.UserService
         public Task<IResult> SetAtributeAsync(long ChatId, double Latitude, double Longtute);
         public Task<IResult> SetAtributeAsync(long ChatId, string Company);
         public Task<IResult> SetAtributeAsync(long ChatId, int Duration);
-
+        public Task<IResult> SetLocationForUser(long ChatId);
+        public Task<LocationDto> FindUserLocation(long ChatId, int Currentlocation);
 
     }
 }

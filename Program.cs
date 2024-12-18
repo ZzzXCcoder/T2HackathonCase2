@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using T2HackathonCase2.Data;
 using T2HackathonCase2.Repository.UserRepository;
 using T2HackathonCase2.Repository.UsersRepository;
+using T2HackathonCase2.Service.HerePlaceService;
 using T2HackathonCase2.Service.MessageService;
 using T2HackathonCase2.Service.UserService;
 using T2HackathonCase2.WebhookSetup;
@@ -29,6 +30,8 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddSingleton<IMessageService, MessageService>();
 
 builder.Services.AddScoped<IUserDialogService, UserDialogService>();
+
+builder.Services.AddScoped<IHerePlaceService, HerePlaceService>();
 
 builder.Services.AddSingleton<TelegramBotClient>(sp =>
 {

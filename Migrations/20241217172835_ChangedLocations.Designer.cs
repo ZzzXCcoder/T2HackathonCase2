@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using T2HackathonCase2.Data;
 
@@ -10,25 +11,26 @@ using T2HackathonCase2.Data;
 namespace T2HackathonCase2.Migrations
 {
     [DbContext(typeof(WeekendWayDbContext))]
-    partial class WeekendWayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241217172835_ChangedLocations")]
+    partial class ChangedLocations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
             modelBuilder.Entity("T2HackathonCase2.Entities.Location", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Category")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ImageURL")
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Latitude")
@@ -41,9 +43,14 @@ namespace T2HackathonCase2.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<long?>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Locations");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Location");
                 });
 
             modelBuilder.Entity("T2HackathonCase2.Entities.OpeningHours", b =>
@@ -56,6 +63,9 @@ namespace T2HackathonCase2.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("LocationId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Recurence")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -65,6 +75,8 @@ namespace T2HackathonCase2.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
 
                     b.ToTable("OpeningHours");
                 });
@@ -83,9 +95,6 @@ namespace T2HackathonCase2.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Currentlocation")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Duration")
                         .HasColumnType("INTEGER");
@@ -108,25 +117,32 @@ namespace T2HackathonCase2.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("T2HackathonCase2.Entities.UserWithLocation", b =>
+            modelBuilder.Entity("T2HackathonCase2.Entities.Location", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                    b.HasOne("T2HackathonCase2.Entities.User", null)
+                        .WithMany("Locations")
+                        .HasForeignKey("UserId");
+                });
 
-                    b.Property<string>("LocationId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+            modelBuilder.Entity("T2HackathonCase2.Entities.OpeningHours", b =>
+                {
+                    b.HasOne("T2HackathonCase2.Entities.Location", "Location")
+                        .WithMany("OpeningHours")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<Guid>("OpeningHoursId")
-                        .HasColumnType("TEXT");
+                    b.Navigation("Location");
+                });
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("T2HackathonCase2.Entities.Location", b =>
+                {
+                    b.Navigation("OpeningHours");
+                });
 
-                    b.HasKey("Id");
-
-                    b.ToTable("UserWithLocations");
+            modelBuilder.Entity("T2HackathonCase2.Entities.User", b =>
+                {
+                    b.Navigation("Locations");
                 });
 #pragma warning restore 612, 618
         }

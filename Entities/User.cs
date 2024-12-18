@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace T2HackathonCase2.Entities
 {
@@ -21,8 +22,9 @@ namespace T2HackathonCase2.Entities
         public int? Duration { get; set; }
 
         public double? Longtute { get; set; }
-        public long? LocationId { get; set; } 
-        public ICollection<Location> Locations { get; set; } = new List<Location>();
+        public long? LocationId { get; set; }
+
+        public int Currentlocation {get; set; }
 
     }
 }
