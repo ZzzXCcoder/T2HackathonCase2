@@ -47,18 +47,22 @@ public class UserDialogService : IUserDialogService
         }
         if (update.CallbackQuery.Data == "get_place")
         {
+
             var location = await _userService.FindUserLocation((long)update.CallbackQuery.Message.Chat.Id, 0);
             if (location != null) // Проверяем, что локация найдена
             {
                 // Отправляем точку на карте
-                await _botClient.SendLocationAsync(
+                await _botClient.SendVenueAsync(
                     chatId: update.CallbackQuery.Message.Chat.Id,
                     latitude: location.Latitude,   // Широта
                     longitude: location.Longitude, // Долгота
+                    title: location.Name,        // Название места
+                    address: location.Description,         // Адрес места
                     replyMarkup: _messageService.GetKeyboard("received_location_foruser") // Клавиатура
                 );
             }
-            if (location != null) // Проверяем, что локация найдена
+            location.Name = "null";
+            if (location != null && location.Name != "null") // Проверяем, что локация найдена
             {
                 if (!string.IsNullOrEmpty(location.ImageURL)) // Если URL изображения не пустой
                 {
@@ -84,7 +88,7 @@ public class UserDialogService : IUserDialogService
                     );
                 }
             }
-            else
+            else if(location==null)
             {
                 // Обрабатываем случай, когда локация не найдена
                 await _botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id,
