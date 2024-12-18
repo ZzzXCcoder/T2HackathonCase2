@@ -97,9 +97,10 @@ namespace T2HackathonCase2.Repository.UsersRepository
         public async Task<IResult> SetAtributeAsync(long ChatId, int Duration)
         {
             var User = await GetUser(ChatId);
-            if (Duration > 5)
+            Duration = Duration * 2;
+            if (Duration > 20)
             {
-                Duration = 5;
+                Duration = 20;
             }
             if (User != null)
             {
@@ -133,9 +134,9 @@ namespace T2HackathonCase2.Repository.UsersRepository
             
         public async Task<IResult> SetLocationForUser(long ChatId, string query, double latitude, double longitude, double radius, int limit)
         {
-            if (limit > 5)
+            if (limit > 20)
             {
-                limit = 5;
+                limit = 20;
             }
 
             var user = await GetUser(ChatId);
