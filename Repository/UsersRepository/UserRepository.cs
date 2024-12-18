@@ -96,6 +96,10 @@ namespace T2HackathonCase2.Repository.UsersRepository
         public async Task<IResult> SetAtributeAsync(long ChatId, int Duration)
         {
             var User = await GetUser(ChatId);
+            if (Duration > 100)
+            {
+                Duration = 100;
+            }
             if (User != null)
             {
                 User.Duration = Duration;
