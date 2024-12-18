@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using T2HackathonCase2.Data;
@@ -55,6 +56,7 @@ builder.Services.AddLogging(config =>
 });
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
 var app = builder.Build();
 
 app.UseHttpsRedirection();
@@ -70,6 +72,12 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.Use(async (context, next) =>
+{
+    var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+    logger.LogInformation($"Request: {context.Request.Method} {context.Request.Path}");
+    await next.Invoke();
+});
 app.UseRouting();
 // Настройка маршрутов
 app.UseRouting();

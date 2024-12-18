@@ -162,7 +162,7 @@ public class UserDialogService : IUserDialogService
             {
                         // Обрабатываем случай, когда следующая локация не найдена
                 await _botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id,
-                "Следующая локация не найдена.",
+                "Локация не найдена.",
                  replyMarkup: _messageService.GetKeyboard("received_location_foruser"));
             }
         }
@@ -199,7 +199,7 @@ public class UserDialogService : IUserDialogService
             {
                     // Обрабатываем случай, когда следующая локация не найдена
                     await _botClient.SendTextMessageAsync(update.CallbackQuery.Message.Chat.Id,
-                        "Следующая локация не найдена.",
+                        "Локация не найдена.",
                         replyMarkup: _messageService.GetKeyboard("received_location_foruser"));
             }
         }
