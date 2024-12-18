@@ -33,13 +33,6 @@ builder.Services.AddScoped<IUserDialogService, UserDialogService>();
 
 builder.Services.AddScoped<IHerePlaceService, HerePlaceService>();
 
-builder.Services.AddSingleton<TelegramBotClient>(sp =>
-{
-    var configuration = sp.GetRequiredService<IConfiguration>();
-    var botToken = configuration["Telegram:BotToken"];
-    return new TelegramBotClient(botToken);
-});
-
 
 builder.Services.AddCors(options =>
 {
