@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using T2HackathonCase2.Data;
@@ -96,9 +97,9 @@ namespace T2HackathonCase2.Repository.UsersRepository
         public async Task<IResult> SetAtributeAsync(long ChatId, int Duration)
         {
             var User = await GetUser(ChatId);
-            if (Duration > 100)
+            if (Duration > 5)
             {
-                Duration = 100;
+                Duration = 5;
             }
             if (User != null)
             {
@@ -132,6 +133,11 @@ namespace T2HackathonCase2.Repository.UsersRepository
             
         public async Task<IResult> SetLocationForUser(long ChatId, string query, double latitude, double longitude, double radius, int limit)
         {
+            if (limit > 5)
+            {
+                limit = 5;
+            }
+
             var user = await GetUser(ChatId);
             if (user == null)
             {
@@ -142,7 +148,6 @@ namespace T2HackathonCase2.Repository.UsersRepository
             // Получаем список мест из сервиса
             var suggestedPlaces = await _herePlaceService.GetSuggestedPlacesAsync(query, latitude, longitude, radius, limit);
             suggestedPlaces = await _herePlaceService.GetImageUrlsForPlaceAsync(suggestedPlaces, 1);
-
             if (suggestedPlaces == null)
             {
                 return Results.NotFound("No suggested places found.");
@@ -207,8 +212,12 @@ namespace T2HackathonCase2.Repository.UsersRepository
 
             var LocationId = userLocation?.LocationId;
 
-            var Location = _context.Locations.FirstOrDefaultAsync(l => l.Id == LocationId).Result;
+            var Location = await _context.Locations.FirstOrDefaultAsync(l => l.Id == LocationId);
 
+            var locationsWithImages = await _context.Locations
+                                        .Where(l => l.Category == Location.Category && !string.IsNullOrEmpty(l.ImageURL))
+                                         .ToListAsync(); // Загружаем все локации с изображениями
+            var randomLocationWithImage = locationsWithImages.OrderBy(_ => Guid.NewGuid()).FirstOrDefault();
             var locationDto = new LocationDto
             {
                 Name = Location?.Name ?? "Unknown",
@@ -216,7 +225,7 @@ namespace T2HackathonCase2.Repository.UsersRepository
                 Latitude = Location.Latitude,
                 Longitude = Location.Longitude,
                 Category = Location?.Category ?? "Unknown",
-                ImageURL = Location?.ImageURL ?? "",
+                ImageURL = randomLocationWithImage?.ImageURL ?? "",
             };
             return locationDto;
         }

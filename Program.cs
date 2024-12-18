@@ -55,7 +55,11 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-
+builder.Services.AddLogging(config =>
+{
+    config.AddConsole();
+    config.AddDebug();
+});
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 var app = builder.Build();
