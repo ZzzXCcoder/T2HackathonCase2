@@ -42,31 +42,4 @@ public class BotController : ControllerBase
         await _userDialogService.HeadleUserInputAsync(update);
         return Ok();
     }
-    [HttpGet("User")]
-    public async Task<IActionResult> GetUser(long id)
-    {
-        var user = await _userService.GetUser(id);
-        if (user == null)
-        {
-            return NotFound();
-        }
-        return Ok(user);
-    }
-    [HttpGet ("GetPlaces")]
-    public async Task<List<HerePlaceDto>> GetSuggestedPlacesAsync(string query, double latitude, double longitude, double radius, int limit = 1)
-    {
-        return await _herePlaceService.GetSuggestedPlacesAsync(query, latitude, longitude, radius, limit);
-    }
-    [HttpPost("SetLocatiionForUser")]
-    public async Task<IActionResult> PostUserPlace(long ChatId, string query, double latitude, double longitude, double radius, int limit = 1)
-    {
-        await _userService.SetLocationForUser(ChatId);
-        return Ok();
-    }
-    [HttpPost("GetUserLocation")]
-    public async Task<IActionResult> GetUserLocation(long ChatId)
-    {
-        await _userService.FindUserLocation(ChatId, 0);
-        return Ok();
-    }
 }
